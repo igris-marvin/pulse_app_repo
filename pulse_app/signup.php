@@ -192,6 +192,11 @@ mysqli_close($connection);
             <?php } ?>
             <div class="input-box animation" style="--i:17;">
                 
+            <input type="text" name="id_number" required>
+                <label>ID Number</label>
+            </div>
+            <div class="input-box animation" style="--i:17;">
+                
             <input type="text" name="name" required>
                 <label>Name</label>
             </div>
