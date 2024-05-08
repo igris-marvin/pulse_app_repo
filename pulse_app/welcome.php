@@ -1,0 +1,216 @@
+<?php
+session_start();
+
+require_once("connect.php");
+
+$user_id;
+
+// Retrieve user information from database
+if(isset($_GET['user_id'])) {
+    // Sanitize the input to prevent SQL injection
+    $user_id = $_GET['user_id'];
+    
+    // Now you can use $user_id in your queries or other operations
+    // For example, you can retrieve user details from the database based on this ID
+    // Make sure to use proper prepared statements to prevent SQL injection
+} else {
+    // Handle the case where 'id' parameter is not set
+    echo "User ID is not provided in the URL.";
+    header("Location: login.php");
+    exit();
+}
+
+$row;
+$name;
+$surname;
+$username;
+$bpm;
+
+$sql = "SELECT pulse_rate FROM pulse WHERE user_id = $user_id";
+$result = $connection->query($sql);
+
+if($row = $result->fetch_assoc()) {
+    $bpm = $row['pulse_rate'];
+}
+
+$sql = "SELECT * FROM user WHERE  user_id = $user_id";
+$result = $connection->query($sql);
+
+if($row = $result->fetch_assoc()) {
+    
+    $name = $row['name'];
+    $surname = $row["surname"];
+    $username = $row["username"];
+
+    function getMood($bpm) {
+        if ($bpm >= 80) {
+            return "Happy";
+        } elseif ($bpm >= 60 && $bpm < 80) {
+            return "Moderate";
+        } else {
+            return "Sad";
+        }
+    
+        if (isset($_POST['logout'])) {
+            session_unset();
+            session_destroy();
+            header('Location: index.php');
+            exit();
+        }
+    }
+
+    $mood = getMood($bpm);
+}
+
+mysqli_close($connection);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
+    <script src="scriptMusic.js" defer></script>
+    <link rel="stylesheet" href="stylyWelcome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnectionect" href="https://fonts.googleapis.com">
+    <link rel="preconnectionect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <title>Welcome</title>
+
+    <style>
+        .remove-decoration 
+        {
+            text-decoration: none;
+        }
+        .logoutBtn
+        {
+            text-decoration: none;
+            width: 100px;
+            height: 60px;
+            background-color:  transparent;
+            border: 1px solid #ADFFFA;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;            
+            margin-left: 45px;
+            transition: .5s;
+            color: antiquewhite;
+        }
+        .logoutBtn:hover
+        {
+            background-color: darkslategray;
+        }
+
+       
+    </style>
+    
+</head>
+  
+<body>
+    
+    <div class="pulse-data">
+       <p><a href="logout.php" class="logoutBtn"><i class='bx bx-log-out-circle'></i>Logout</a></p>     
+    </div>
+
+    <div class="panel1">
+
+    <?php echo "
+    <a href='user_account.php?user_id={$row['user_id']}' class='remove-decoration'>
+"
+?>
+
+
+        <div class="container1" class="remove-decoration">
+            <span class="userIcon"></span><i class='bx bx-user-check'></i>            
+            <p class="sessionN"><span class="textSessionName"> <span class="nameText"><?php echo $name; ?></span></span></p>
+            
+        </div>
+
+        </a>
+       
+       
+        <div class="container">                  
+                <div class="circle"> 
+                    <span class="roboto-regular "><?php echo $bpm; ?> <span class="bpmText">BPM</span></span>
+                </div>  
+                
+                <div class="container2">
+                    <i class='bx bx-pulse' ></i>
+                    <p   class="textSessionMood"><span class="moodText"><?php echo $mood; ?></span></p> 
+                </div>
+        </div>
+    </div>
+
+    <div class="music-player">
+            <div class="player">
+            <div class="wrapper">
+                <div class="details">
+                    <div class="now-playing">PLAYING x OF y</div>
+                    <div class="track-art"></div>
+                    <div class="track-name">Track Name</div>
+                    <div class="track-artist">Track Artist</div>
+                </div>
+
+                <div class="slider_container">
+                    <div class="current-time">00:00</div>
+                        <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+                        <div class="total-duration">00:00</div>
+                </div>
+
+                <div class="slider_container">
+                    <i class="fa fa-volume-down"></i>
+                        <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+                        <i class="fa fa-volume-up"></i>
+                </div>
+
+                <div class="buttons">
+                    <div class="random-track" onclick="randomTrack()">
+                        <i class="fas fa-random fa-2x" title="random"></i>
+                    </div>
+                    <div class="prev-track" onclick="prevTrack()">
+                            <i class="fa fa-step-backward fa-2x"></i>
+                        </div>
+                        <div class="playpause-track" onclick="playpauseTrack()">
+                            <i class="fa fa-play-circle fa-5x"></i>
+                        </div>
+                        <div class="next-track" onclick="nextTrack()">
+                            <i class="fa fa-step-forward fa-2x"></i>
+                        </div>
+                        <div class="repeat-track" onclick="repeatTrack()">
+                            <i class="fa fa-repeat fa-2x" title="repeat"></i>
+                        </div>
+                </div>
+                
+
+                    <div id="wave">
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                        <span class="stroke"></span>
+                    </div>  
+            </div>
+        </div>
+    </div>
+        
+    
+    <div class="bubbles">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+            <img src="images/bubble.png">
+    </div>
+</body>
+</html>
