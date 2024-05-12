@@ -235,6 +235,7 @@
             <div class="dropdown-content-burger">
                 <a href="system.php">Our Journey</a>
                 <a href="us.php">About Us</a>
+                <a href="us.php">Report Pages</a>
                 <a href="admin_login.php">Admin Login</a>
             </div>
         </div>
