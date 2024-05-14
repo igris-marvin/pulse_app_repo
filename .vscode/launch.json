@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-KApplication<k>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.swp.k.KApplication",
+            "projectName": "k",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
