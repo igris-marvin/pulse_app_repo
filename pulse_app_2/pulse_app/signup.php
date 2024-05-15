@@ -64,7 +64,7 @@ require_once("signupservlet.php");
       <div class="form-box sign-up">
         <h2 class="animation">Sign Up</h2>
 
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             <?php if(isset($error)) { ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php } ?>
@@ -106,7 +106,7 @@ require_once("signupservlet.php");
                 <label for="image">Upload profile image</label>
             </div>
             <div class="input-box animation" style="--i:22;">
-                <input type="checkbox" id="terms" name="tcs" value="Y" required>
+                <input type="checkbox" id="terms" name="tcs" value="Y">
                 <label for="terms">I agree to the <a href="terms_and_conditions.php" target="blank">Terms and Conditions</a></label>
             </div>
             

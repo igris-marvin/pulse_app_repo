@@ -42,7 +42,7 @@ class Member {
         return $this->member_id;
     }
 
-    public function getImageData() {
+    public function getImage() {
         return $this->image;
     }
 
@@ -90,7 +90,7 @@ class Member {
         $this->member_id = $member_id;
     }
 
-    public function setImageData($image) {
+    public function setImage($image) {
         $this->image = $image;
     }
 

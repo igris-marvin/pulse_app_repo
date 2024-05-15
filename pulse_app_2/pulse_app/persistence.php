@@ -5,12 +5,12 @@
     //PERSISTENCE FUNCTION FOR SIGNUP
     function createUser($member_object, $conn) {
         // Prepare SQL statement
-        $stmt = $conn->prepare("INSERT INTO member (dob, gender, id_number, image, mgr, name, password, role, tcs, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO member (dob, gender, id_number, image, mgr, name, surname, password, role, tcs, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
         $dob = $member_object->getDob();      // DATE field, use "s" for string representation
         $gender = $member_object->getGender();   // CHAR(1), use "s" for string representation
         $idnum = $member_object->getIdNum();    // VARCHAR(13), use "s" for string representation
-        $image = $member_object->getImageData();  // LONGBLOB, use "b" for binary data
+        $image = $member_object->getImage();  // LONGBLOB, use "b" for binary data
         $mgr = $member_object->getMgr();      // INTEGER, use "i" for integer
         $name = $member_object->getName();     // VARCHAR(?), use "s" for string representation
         $surname = $member_object->getSurname();  // VARCHAR(?), use "s" for string representation
@@ -20,7 +20,7 @@
         $username = $member_object->getUsername(); 
 
         // Bind parameters and execute the statement
-        $stmt->bind_param("sssbissssss",
+        $stmt->bind_param("ssssissssss",
             $dob,      // DATE field, use "s" for string representation
             $gender,   // CHAR(1), use "s" for string representation
             $idnum,    // VARCHAR(13), use "s" for string representation
