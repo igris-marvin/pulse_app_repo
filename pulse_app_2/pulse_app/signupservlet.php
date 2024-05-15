@@ -3,48 +3,55 @@ session_start();
 
 require_once("connect.php"); //IMPORT DATABASE CONNECTION
 require_once("persistence.php"); //IMPORT PERSISTENCE FUNCTIONS
-require_once("user.php"); //IMPORT USER CLASS
+require_once("member.php"); //IMPORT USER CLASS
 
-$error;
+$error = "";
 
 if (isset($_POST['register'])) {
-    $name = $_POST['name']; //get name from input
-    $surname = $_POST['surname']; //get surname from input
-    $username = $_POST['username']; //get username from input
-    
-    //TEST USERNAME
-    $sql = "SELECT username FROM user";
-    $result = $connection->query($sql);
+    $idnumber = $_POST['idnumber']; // ID NUMBER
+    $name = $_POST['name']; // NAME
+    $surname = $_POST['surname']; // SURNAME
+    $username = $_POST['username']; // USERNAME
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password']; 
+    $role = "CUSTOMER";
+    $gender = extractGenderFromSAID($idnumber); // GENDER
+    $dob = extractDOBFromSAID($idnumber); //DATE OF BIRTH
+    $tcs = $_POST['tcs'];
 
-    while($row = $result->fetch_assoc()) {
-
-        if($row['username'] == $username) {
-
-            $error = "Username already exists, please enter a different username.";
-        }
+    if(empty($tcs)) {
+        $tcs = "N";
     }
 
+    $image = null; // IMAGE
+
+    if(isset($_FILES['image'])){
+        // Get the image data
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+
+    }
+    
+    //TEST USERNAME
+    $error = testUsername($username, $error, $conn);
+
     //validate users input
-    if (!validateCredentials($name) || !validateCredentials($surname)) {
+    if (validateCredentials($name) && validateCredentials($surname)) {
         
         $error = "Invalid name or surname";
-    } elseif (!validateUsername($username)) {
+    } elseif (validateUsername($username)) {
 
         $error = "Invalid username";
-    } elseif(!validateMinLength($name) || !validateMinLength($surname) || !validateMinLength($username)) {
+    } elseif(validateMinLength($name) && validateMinLength($surname) && validateMinLength($username)) {
 
         $error = "name, surname or username length must be greater than 3 characters";
-    }elseif(!validateMaxLength($name) || !validateMaxLength($surname) || !validateMaxLength($username)) {
+    }elseif(validateMaxLength($name) && validateMaxLength($surname) && validateMaxLength($username)) {
 
         $error = "name, surname or username length must be less than 25 characters";
+    }elseif(strlen($idnumber) != 13 && validateNumber($idnumber)) { //ADD ANOTHER CONDITION
+        $error = "Invalid ID Number";
     }
 
     if(empty($error)) {
-            
-        $user_id;
-        
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];    
 
         if ($password !== $confirm_password) { //COMPARE PASSWORDS 
 
@@ -52,60 +59,26 @@ if (isset($_POST['register'])) {
 
         } else {
 
-            $admin_id = assignAdmin($connection);
+            $mgr = assignAdmin($conn);
 
-            if(!empty($admin_id)) {
+            if(!empty($mgr)) {
 
-                $sql = "INSERT INTO user (name, surname, username, password, admin_id)
-                        VALUES ('$name', '$surname', '$username', '$password', $admin_id)";
-                
-                if (mysqli_query($connection, $sql)) {
+                $member_object = new Member(0, $idnumber, $image, $name, $surname, $password, $gender, $dob, $role, $mgr, $tcs, $username);
 
-                    //get new user user_id
-                    $sql = "SELECT user_id FROM user WHERE username = '$username'";
-                    $result = $connection->query($sql);
+                $flag = createUser($member_object, $conn);
 
-                    if($row = $result->fetch_assoc()) {
-                        $user_id = $row['user_id'];
-                    }
-
-                    header('Location: login.php');
-                    exit();
-                } else {
-                    $error = "Error: " . $sql . "<br>" . mysqli_error($connection);
+                if($flag === false) {
+                    $error = "Sign up was unsuccessful, please try again later!";
                 }
+
+                $conn->close();
+                header("Location: login.php");
+                exit();
+
+            } else {
+                $error = "Admin not found, please try again later!";
             }
         }
-    }
-}
-
-function assignAdmin($connection) { //ASSIGN ADMIN TO new user
-
-    $sql = "SELECT * FROM admin";
-    $result = $connection->query($sql); //execute query
-
-    if (!$result) {
-        die("Invalid query: " . $connection->error);
-    }
-
-    $admin_ids = array();
-
-    //read each record from table
-    while ($row = $result->fetch_assoc()) {
-        //store admin ids inside an array
-        $admin_ids[] = $row['admin_id']; // assuming 'id' is the column name for admin id
-    }
-
-    if (count($admin_ids) > 0) {
-        //randomise a number from 0 to whichever number of admins are available - 1
-        $random_index = rand(0, count($admin_ids) - 1);
-
-        //get the admin id of that index/randomised number
-        $random_admin_id = $admin_ids[$random_index];
-
-        return $random_admin_id;
-    } else {
-        $error = "No administrators found!";
     }
 }
 
@@ -113,10 +86,10 @@ function validateUsername($text) {
     // For username: only letters and numbers are allowed
     if (preg_match('/^[a-zA-Z0-9]+$/', $text)) {
 
-        return true;
+        return false;
     } else {
 
-        return false;
+        return true;
     }
 }
 
@@ -124,30 +97,52 @@ function validateCredentials($text) {
     // For name and surname: only letters are allowed
     if (preg_match('/^[a-zA-Z]+$/', $text)) {
 
-        return true;
+        return false;
     } else {
 
-        return false;
+        return true;
     }
 }
 
 function validateMinLength($text) {
     if(strlen($text) < 3) {
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 function validateMaxLength($text) {
     
     if(strlen($text) > 25) {
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
-mysqli_close($connection);
+function extractDOBFromSAID($idNumber) {
+    $dob = substr($idNumber, 0, 6); // First 6 digits represent the date of birth
+    $dobYear = substr($dob, 0, 2); // Extract year (YY format)
+    $dobMonth = substr($dob, 2, 2); // Extract month
+    $dobDay = substr($dob, 4, 2); // Extract day
+    // Determine the century based on the first two digits of the year
+    $century = ($dobYear >= date('y')) ? '19' : '20'; // Assuming anyone born after the current year is born in the 20th century
+    $dobYear = $century . $dobYear; // Concatenate century with the year
+    $dateOfBirth = $dobYear . '-' . $dobMonth . '-' . $dobDay; // Format as YYYY-MM-DD
+    
+    return $dateOfBirth;
+}
+
+function extractGenderFromSAID($idNumber) {
+    $genderDigit = substr($idNumber, 6, 1); // 7th digit represents gender
+
+    return ($genderDigit < 5) ? 'F' : 'M'; // Even numbers represent females, odd numbers represent males
+}
+
+function validateNumber($idnumber) {
+    // Check if $idnumber contains only numbers
+    return preg_match('/^[0-9]+$/', $idnumber) === 1;
+}
 
 ?>

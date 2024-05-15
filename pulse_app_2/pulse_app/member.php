@@ -1,7 +1,8 @@
 <?php
-class User {
+class Member {
+    private $member_id;
     private $id_num;
-    private $image_data;
+    private $image;
     private $name;
     private $surname;
     private $password;
@@ -9,11 +10,14 @@ class User {
     private $dob;
     private $role;
     private $mgr;
+    private $tcs;
+    private $username;
 
     // Constructor
-    public function __construct($id_num, $image_data, $name, $surname, $password, $gender, $dob, $role, $mgr) {
+    public function __construct($member_id, $id_num, $image, $name, $surname, $password, $gender, $dob, $role, $mgr, $tcs, $username) {
+        $this->member_id = $member_id;
         $this->id_num = $id_num;
-        $this->image_data = $image_data;
+        $this->image = $image;
         $this->name = $name;
         $this->surname = $surname;
         $this->password = $password;
@@ -21,15 +25,25 @@ class User {
         $this->dob = $dob;
         $this->role = $role;
         $this->mgr = $mgr;
+        $this->tcs = $tcs;
+        $this->username = $username;
     }
 
     // Getter methods
+    public function getUsername() {
+        return $this->username;
+    }
+
     public function getIdNum() {
         return $this->id_num;
     }
 
+    public function getMemberId() {
+        return $this->member_id;
+    }
+
     public function getImageData() {
-        return $this->image_data;
+        return $this->image;
     }
 
     public function getName() {
@@ -60,13 +74,24 @@ class User {
         return $this->mgr;
     }
 
+    public function getTcs() {
+        return $this->tcs;
+    }
+
     // Setter methods
+    public function setUsername($username) {
+        $this->username = $username;
+    }
     public function setIdNum($id_num) {
         $this->id_num = $id_num;
     }
 
-    public function setImageData($image_data) {
-        $this->image_data = $image_data;
+    public function setMember_id($member_id) {
+        $this->member_id = $member_id;
+    }
+
+    public function setImageData($image) {
+        $this->image = $image;
     }
 
     public function setName($name) {
@@ -95,6 +120,10 @@ class User {
 
     public function setMgr($mgr) {
         $this->mgr = $mgr;
+    }
+
+    public function setTcs($tcs) {
+        $this->tcs = $tcs;
     }
 }
 ?>

@@ -9,11 +9,11 @@ require_once("signupservlet.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="styleLogin.css">
+    <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
+    <!-- <link rel="stylesheet" href="styleLogin.css"> -->
     <title>Register</title>
     
-    <style>
+    <!-- <style>
         .navbar
         {          
            margin-bottom: 42%;         
@@ -37,7 +37,7 @@ require_once("signupservlet.php");
         {
             color: aqua            
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="navbar">
@@ -106,7 +106,7 @@ require_once("signupservlet.php");
                 <label for="image">Upload profile image</label>
             </div>
             <div class="input-box animation" style="--i:22;">
-                <input type="checkbox" id="terms" name="terms" required>
+                <input type="checkbox" id="terms" name="tcs" value="Y" required>
                 <label for="terms">I agree to the <a href="terms_and_conditions.php" target="blank">Terms and Conditions</a></label>
             </div>
             
@@ -130,7 +130,7 @@ require_once("signupservlet.php");
       </div>
     </div>     
 
-            <div class="bubbles">
+            <!-- <div class="bubbles">
             <img src="images/bubble.png">
             <img src="images/bubble.png">
             <img src="images/bubble.png">
@@ -138,7 +138,7 @@ require_once("signupservlet.php");
             <img src="images/bubble.png">
             <img src="images/bubble.png">
             <img src="images/bubble.png">
-            </div>
+            </div> -->
      
       
     <script src="script.js"></script>
