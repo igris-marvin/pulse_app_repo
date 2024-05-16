@@ -1,75 +1,6 @@
-<?php 
+<?php
 
-//START OR RESUME SESSION FROM PREVIOUS PAGE
-session_start();
-
-//CONNECT TO DATABASE
-require_once("connect.php");
-
-if(isset($_GET['user_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $id = $_GET['user_id'];
-    
-    // Now you can use $user_id in your queries or other operations
-    // For example, you can retrieve user details from the database based on this ID
-    // Make sure to use proper prepared statements to prevent SQL injection
-} else {
-    // Handle the case where 'id' parameter is not set
-    echo "User ID is not provided in the URL.";
-}
-
-$id;
-
-$sql =  "SELECT *
-         FROM user
-         WHERE user_id = $id";
-
-$result = $connection->query($sql); //execute query
-
-if (!$result) {
-    die("Invalid query: " . $connection->error);
-}
-
-//DELETE USER
-if(isset($_POST['delete_user'])) {
-    $del_id = $_POST['del_id'];
-
-     // DELETE PULSE RECORDS FIRST
-     $sql_pulse = "DELETE FROM pulse WHERE user_id = $del_id";
-     $update_pulse = $connection->prepare($sql_pulse);
-     $update_pulse->execute();
- 
-     // CHECK IF DELETION OF PULSE RECORDS WAS SUCCESSFUL
-     if($update_pulse->error) {
-         die("Error deleting pulse records: " . $update_pulse->error);
-     }
- 
-     // DELETE USER
-     $sql_user = "DELETE FROM user WHERE user_id = $del_id";          
-     $update_user = $connection->prepare($sql_user);
-     $update_user->execute();
- 
-     // CHECK IF DELETION OF USER WAS SUCCESSFUL
-     if($update_user->error) {
-         die("Error deleting user: " . $update_user->error);
-     }
-     
-    session_unset();
-    session_destroy();
-    header("Location: index.php");
-    exit;
-}
-
-//GET USER INFORMATION
-$name;
-$surname;
-$username;
-
-if($row = $result->fetch_assoc()) {
-    $username = $row['username'];
-    $name = $row['name'];
-    $surname = $row['surname'];
-}
+require_once("user_accountservlet.php");
 
 ?>
 
@@ -162,7 +93,7 @@ if($row = $result->fetch_assoc()) {
         <table>
             <tr>
                 <th>User ID:</th>
-                <td><?php echo $id?></td>
+                <td><?php echo $member_id?></td>
             </tr>
             <tr>
                 <th>Username:</th>

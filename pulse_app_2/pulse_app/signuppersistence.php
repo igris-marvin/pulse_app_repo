@@ -1,6 +1,6 @@
 <?php
 
-/* SIGN UP PERSISTENCE FUNCTIONS */
+/* SIGN UP PERSISTENCE FUNCTIONS ============================================================================== */
 
     //PERSISTENCE FUNCTION FOR SIGNUP
     function createUser($member_object, $conn) {
@@ -36,7 +36,43 @@
 
 
         $stmt->execute();
+
+        //get member_id
+        $member_id = null;
+
+        $sql = "SELECT member_id FROM member WHERE username = '$username'";
+        $result = $conn->query($sql); //execute query
     
+        if (!$result) {
+            die("Invalid query: " . $conn->error);
+        }
+
+        if($row = $result->fetch_assoc()) {
+            //store new members id into the variable
+            $member_id = $row['member_id'];
+        }
+
+        //CREATE A DEVICE
+        $sql = "INSERT INTO pulse_detector_device (pulse_rate) VALUES (0)";
+
+        // Assuming $mysqli is your MySQLi database connection
+        $conn->query($sql);
+
+        $device_id = $conn->insert_id;
+
+
+        //CREATE AN APP 
+        $sql = "INSERT INTO emotion_regulator_app (pulse_device_id, member_id) VALUES (?, ?)";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bind_param("ii",
+            $device_id,
+            $member_id
+        );
+
+        $stmt->execute();
+
         // Check if the data was inserted successfully
         if ($stmt->affected_rows > 0) {
             return true;

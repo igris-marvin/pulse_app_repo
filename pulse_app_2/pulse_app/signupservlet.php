@@ -2,7 +2,7 @@
 session_start();
 
 require_once("connect.php"); //IMPORT DATABASE CONNECTION
-require_once("persistence.php"); //IMPORT PERSISTENCE FUNCTIONS
+require_once("signuppersistence.php"); //IMPORT PERSISTENCE FUNCTIONS
 require_once("member.php"); //IMPORT USER CLASS
 
 $error = "";
@@ -17,10 +17,14 @@ if (isset($_POST['register'])) {
     $role = "CUSTOMER";
     $gender = extractGenderFromSAID($idnumber); // GENDER
     $dob = extractDOBFromSAID($idnumber); //DATE OF BIRTH
-    $tcs = $_POST['tcs'];
+    $tcs = null;
 
-    if(empty($tcs)) {
+    if(isset($_POST['tcs'])) {
+        $tcs = $_POST['tcs'];
+
+    } else {
         $tcs = "N";
+
     }
 
     $image = null; // IMAGE

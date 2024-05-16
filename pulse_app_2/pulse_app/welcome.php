@@ -1,68 +1,7 @@
 <?php
-session_start();
 
-require_once("connect.php");
+require_once("welcomeservlet.php");
 
-$user_id;
-
-// Retrieve user information from database
-if(isset($_GET['user_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $user_id = $_GET['user_id'];
-    
-    // Now you can use $user_id in your queries or other operations
-    // For example, you can retrieve user details from the database based on this ID
-    // Make sure to use proper prepared statements to prevent SQL injection
-} else {
-    // Handle the case where 'id' parameter is not set
-    echo "User ID is not provided in the URL.";
-    header("Location: login.php");
-    exit();
-}
-
-$row;
-$name;
-$surname;
-$username;
-$bpm;
-
-$sql = "SELECT pulse_rate FROM pulse WHERE user_id = $user_id";
-$result = $connection->query($sql);
-
-if($row = $result->fetch_assoc()) {
-    $bpm = $row['pulse_rate'];
-}
-
-$sql = "SELECT * FROM user WHERE  user_id = $user_id";
-$result = $connection->query($sql);
-
-if($row = $result->fetch_assoc()) {
-    
-    $name = $row['name'];
-    $surname = $row["surname"];
-    $username = $row["username"];
-
-    function getMood($bpm) {
-        if ($bpm >= 80) {
-            return "Happy";
-        } elseif ($bpm >= 60 && $bpm < 80) {
-            return "Moderate";
-        } else {
-            return "Sad";
-        }
-    
-        if (isset($_POST['logout'])) {
-            session_unset();
-            session_destroy();
-            header('Location: index.php');
-            exit();
-        }
-    }
-
-    $mood = getMood($bpm);
-}
-
-mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +61,7 @@ mysqli_close($connection);
     <div class="panel1">
 
     <?php echo "
-    <a href='user_account.php?user_id={$row['user_id']}' class='remove-decoration'>
+    <a href='user_account.php?user_id=$user_id' class='remove-decoration'>
 "
 ?>
 

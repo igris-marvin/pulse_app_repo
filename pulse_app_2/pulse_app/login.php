@@ -1,78 +1,7 @@
 <?php
 // Database connection
-require_once("connect.php");
+require_once("loginservlet.php"); //import login servlet
 
-$errMsg = "";
-
-//attach se
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // Get username and password from form
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-
-    if(!validateUsername($username)) {
-        $errMsg = "Invalid Username";
-    }
-
-    if(empty($errMsg)) {
-
-        $sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-        $result = $connection->query($sql);
-
-        if ($result->num_rows > 0) {
-            if ($row = $result->fetch_assoc()) {
-                $id = $row['user_id'];
-            }
-        
-        // Assuming you have the connection established in $connection and $id holds the user ID
-
-            //CHECK IF pulse record for user exists
-            $sql = "SELECT * FROM pulse WHERE user_id = '$id'";
-            $result = $connection->query($sql);
-                
-            $bpm = rand(60, 100); // Generating a random BPM
-
-            if($result->num_rows > 0) { //CHECK IF USER IS ASSOCIATED WITH PULSE
-
-                //update pulse record of user 
-                $sql = "UPDATE pulse SET pulse_rate = '$bpm' WHERE user_id = '$id'";
-            } else {
-                
-                //create pulse record for user
-                $sql = "INSERT INTO pulse (pulse_rate, user_id) VALUES ('$bpm', '$id')";
-            }
-        
-            if (mysqli_query($connection, $sql)) {
-
-                header("Location: welcome.php?user_id=$id");
-                exit();
-            } else {
-
-                echo "Error updating record: " . mysqli_error($connection);
-            }
-
-        } else {
-            
-            $errMsg = "Invalid username or password";
-        }
-    }
-}
-
-function validateUsername($text) {
-    // For username: only letters and numbers are allowed
-    if (preg_match('/^[a-zA-Z0-9]+$/', $text)) {
-
-        return true;
-    } else {
-
-        return false;
-    }
-}
-
-// Close connection
-$connection->close();
 ?>
 
 <!DOCTYPE html>
@@ -128,7 +57,7 @@ $connection->close();
 <div class="container99">
     <div class="form-box sign-up">
         <h2 class="animation">Login</h2>
-        <form method="post" action="">
+        <form method="POST">
 
             <div  class="input-box animation" style="--i:17;">            
                 <input type="text" name="username" required>
