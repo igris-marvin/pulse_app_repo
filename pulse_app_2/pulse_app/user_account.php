@@ -89,7 +89,18 @@ require_once("user_accountservlet.php");
 <body>
 <div class="panel1">
     <div class="container">
+
         <h1>User Account Details</h1>
+        
+        <div class="container">
+            <center>
+                <?php
+                    echo "<img src='$image_data' alt='image' width='150px' height='125px'>";
+                ?>
+            </center>
+
+        </div>
+
         <table>
             <tr>
                 <th>User ID:</th>
@@ -108,10 +119,18 @@ require_once("user_accountservlet.php");
                 <td><?php echo $surname?></td>
             </tr>
             <tr>
+                <th>Date Of Birth:</th>
+                <td><?php echo $dob?></td>
+            </tr>
+            <tr>
+                <th>Gender:</th>
+                <td><?php echo $gender?></td>
+            </tr>
+            <tr>
                 <td colspan="2"> 
                     <?php echo  
                             "
-                                <a href='edit_profile.php?id=$id' class='btn2'><span class='textE'>Edit Profile<span></a>
+                                <a href='edit_profile.php?user_id=$member_id' class='btn2'><span class='textE'>Edit Profile<span></a>
                             "
                         ?>
                 </td>
@@ -120,7 +139,7 @@ require_once("user_accountservlet.php");
                 <td colspan="2">
                 <form method="post">
                         <?php echo " 
-                    <input type='hidden' name='del_id' value='$id'>"  ?> <!-- Replace 123 with the actual user ID -->
+                    <input type='hidden' name='del_id' value='$member_id'>"  ?> <!-- Replace 123 with the actual user ID -->
                         <!-- Add a submit button -->
                         <div class="movBtn">
                         <button type="submit" name="delete_user" class='profile-link'>Delete User</button>

@@ -63,7 +63,6 @@ public class Member {
     @Column(nullable = true)
     private Boolean tcs;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "pulse_app_id")
+    @OneToOne(mappedBy = "member")
     private EmotionRegulatorApp emotionRegulatorApp;
 }

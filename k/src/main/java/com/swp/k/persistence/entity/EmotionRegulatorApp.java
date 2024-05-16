@@ -35,7 +35,8 @@ public class EmotionRegulatorApp {
     @JoinColumn(name = "pulse_device_id")
     private PulseDetectorDevice pulseDetectorDevice;
 
-    @OneToOne(mappedBy = "emotionRegulatorApp")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public EmotionRegulatorApp(String mood, PulseDetectorDevice pulseDetectorDevice) {

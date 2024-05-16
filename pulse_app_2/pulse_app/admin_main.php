@@ -8,11 +8,11 @@ if(isset($_GET['user_id'])) {
     $del_id = $_GET['user_id'];
 
     //CHECK IF USER EXISTS
-    $sql = "SELECT user_id FROM user WHERE user_id = $del_id";
-    $result = $connection->query($sql); //execute query
+    $sql = "SELECT member_id FROM member WHERE member_id = $del_id";
+    $result = $conn->query($sql); //execute query
 
     if (!$result) {
-        die("Invalid query: " . $connection->error);
+        die("Invalid query: " . $conn->error);
     }
 
     //read each record from table
@@ -20,7 +20,7 @@ if(isset($_GET['user_id'])) {
             
         // DELETE PULSE RECORDS FIRST
         $sql_pulse = "DELETE FROM pulse WHERE user_id = $del_id";
-        $update_pulse = $connection->prepare($sql_pulse);
+        $update_pulse = $conn->prepare($sql_pulse);
         $update_pulse->execute();
 
         // CHECK IF DELETION OF PULSE RECORDS WAS SUCCESSFUL
@@ -30,7 +30,7 @@ if(isset($_GET['user_id'])) {
 
         // DELETE USER
         $sql_user = "DELETE FROM user WHERE user_id = $del_id";          
-        $update_user = $connection->prepare($sql_user);
+        $update_user = $conn->prepare($sql_user);
         $update_user->execute();
 
         // CHECK IF DELETION OF USER WAS SUCCESSFUL
@@ -164,10 +164,10 @@ if(isset($_GET['user_id'])) {
 
         //read all records from database table, for the admin that has logged in
         $sql = "SELECT u.user_id, u.name, u.surname, u.username FROM user u, admin a WHERE u.admin_id = a.admin_id";
-        $result = $connection->query($sql); //execute query
+        $result = $conn->query($sql); //execute query
 
         if (!$result) {
-            die("Invalid query: " . $connection->error);
+            die("Invalid query: " . $conn->error);
         }
 
         //read each record from table

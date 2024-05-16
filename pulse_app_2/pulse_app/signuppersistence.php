@@ -119,4 +119,20 @@
         return $mgr;
     }
 
+    function textIdNumber($id_number, $error, $conn) {
+        
+        $sql = "SELECT id_number FROM member";
+        $result = $conn->query($sql);
+
+        while($row = $result->fetch_assoc()) {
+
+            if($row['id_number'] == $id_number) {
+
+                $error = "Duplicate id number, please enter a different id number.";
+            }
+        }
+
+        return $error;
+    }
+
 ?>

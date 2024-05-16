@@ -9,11 +9,11 @@ require_once("signupservlet.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> -->
-    <!-- <link rel="stylesheet" href="styleLogin.css"> -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> 
+    <link rel="stylesheet" href="styleL.css">
     <title>Register</title>
     
-    <!-- <style>
+    <style>
         .navbar
         {          
            margin-bottom: 42%;         
@@ -29,7 +29,7 @@ require_once("signupservlet.php");
             outline: none;
             cursor: pointer;
             transition: color 0.3s;            
-            margin-bottom: 100px;
+            margin-bottom: 1500px;
             
            
         }
@@ -37,7 +37,7 @@ require_once("signupservlet.php");
         {
             color: aqua            
         }
-    </style> -->
+    </style>
 </head>
 <body>
 <div class="navbar">
@@ -101,12 +101,22 @@ require_once("signupservlet.php");
                 <label>Confirm Password</label>
             </div>
             <div class="input-box animation" style="--i:21;">  
-                
-                <input type="file" name="image" accept="image/*" />
-                <label for="image">Upload profile image</label>
+                <div  class="ui input-box animation" style="--i:22;">
+                    <label for="image">Upload profile image</label>
+                </div>  
+                <div class="fileb">
+                     <input type="file" name="image" accept="image/*" />
+                </div>
+                      
             </div>
-            <div class="input-box animation" style="--i:22;">
-                <input type="checkbox" id="terms" name="tcs" value="Y">
+
+            <div class="input-box animation" style="--i:23;">
+                <div class="checkb">
+                    <input  type="checkbox" id="terms" name="tcs" value="Y">
+                </div>          
+            </div>
+
+            <div class="tc input-box animation"  style="--i:24;">
                 <label for="terms">I agree to the <a href="terms_and_conditions.php" target="blank">Terms and Conditions</a></label>
             </div>
             

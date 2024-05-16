@@ -11,11 +11,11 @@ if(isset($_POST['login'])) {
 
     if(validateUsername($username)) {
     
-        $sql = "SELECT * FROM admin";
-        $result = $connection->query($sql); //execute query
+        $sql = "SELECT username, password FROM member WHERE role = 'ADMIN'";
+        $result = $conn->query($sql); //execute query
     
         if (!$result) {
-            die("Invalid query: " . $connection->error);
+            die("Invalid query: " . $conn->error);
         }
     
         //read each record from table

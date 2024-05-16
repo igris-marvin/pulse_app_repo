@@ -29,11 +29,16 @@ if (isset($_POST['register'])) {
 
     $image = null; // IMAGE
 
-    if(isset($_FILES['image'])){
+    if(isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
         // Get the image data
         $image = file_get_contents($_FILES['image']['tmp_name']);
-
+    
+        // Process the image data
+        // ...
     }
+
+    //TEST ID NUMBER
+    $error = textIdNumber($idnumber, $error, $conn);
     
     //TEST USERNAME
     $error = testUsername($username, $error, $conn);
