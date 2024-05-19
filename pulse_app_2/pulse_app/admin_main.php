@@ -1,49 +1,9 @@
 <?php
 
 require_once('connect.php'); //connect to database
+require_once('adminservlet.php');
 
 $message;
-
-if(isset($_GET['user_id'])) {
-    $del_id = $_GET['user_id'];
-
-    //CHECK IF USER EXISTS
-    $sql = "SELECT member_id FROM member WHERE member_id = $del_id";
-    $result = $conn->query($sql); //execute query
-
-    if (!$result) {
-        die("Invalid query: " . $conn->error);
-    }
-
-    //read each record from table
-    if ($row = $result->fetch_assoc()) {
-            
-        // DELETE PULSE RECORDS FIRST
-        $sql_pulse = "DELETE FROM pulse WHERE user_id = $del_id";
-        $update_pulse = $conn->prepare($sql_pulse);
-        $update_pulse->execute();
-
-        // CHECK IF DELETION OF PULSE RECORDS WAS SUCCESSFUL
-        if($update_pulse->error) {
-            die("Error deleting pulse records: " . $update_pulse->error);
-        }
-
-        // DELETE USER
-        $sql_user = "DELETE FROM user WHERE user_id = $del_id";          
-        $update_user = $conn->prepare($sql_user);
-        $update_user->execute();
-
-        // CHECK IF DELETION OF USER WAS SUCCESSFUL
-        if($update_user->error) {
-            die("Error deleting user: " . $update_user->error);
-        } else {
-            $message = "User deleted succesfully";
-        }
-
-    } else {
-        $message;
-    }
-}
 
 ?>
 
