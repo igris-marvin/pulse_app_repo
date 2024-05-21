@@ -9,6 +9,16 @@
             "projectName": "k",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PulseApplication<pulse>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.pulse.PulseApplication",
+            "projectName": "pulse",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

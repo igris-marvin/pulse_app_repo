@@ -1,30 +1,30 @@
 package com.example.pulse.persistence.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
-import java.util.Set;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class PulseData {
+public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dataID;
+    private Integer historyID;
+
+    @ManyToOne
+    @JoinColumn(name = "pulseDataID")
+    private PulseData pulseData;
 
     @ManyToOne
     @JoinColumn(name = "deviceID")
@@ -34,11 +34,8 @@ public class PulseData {
     @JoinColumn(name = "personID")
     private Person person;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     private Date timestamp;
     private Integer bpm;
 
-    @OneToMany(mappedBy = "pulseData")
-    private Set<History> history;
+    // Getters and setters
 }
-
