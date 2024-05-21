@@ -2,6 +2,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BpmApplication",
+            "request": "launch",
+            "mainClass": "com.example.bpm.BpmApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "GenerateBPM",
+            "request": "launch",
+            "mainClass": "GenerateBPM",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "GeneratePulse",
+            "request": "launch",
+            "mainClass": "GeneratePulse",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-KApplication<k>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
