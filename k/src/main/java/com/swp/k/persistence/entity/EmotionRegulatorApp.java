@@ -39,10 +39,6 @@ public class EmotionRegulatorApp {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "history_id")
-    private History history;
-
     public EmotionRegulatorApp(String mood, PulseDetectorDevice pulseDetectorDevice) {
         this.mood = mood;
         this.pulseDetectorDevice = pulseDetectorDevice;

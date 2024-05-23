@@ -3,9 +3,9 @@ package com.swp.k.persistence.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.swp.k.persistence.entity.History;
+import com.swp.k.persistence.entity.Readings;
 
 @Repository
-public interface HistoryRepository extends JpaRepository<History, Integer> {
+public interface ReadingsRepository extends JpaRepository<Readings, Integer>{
     
 }

@@ -41,6 +41,9 @@ public class Member {
     @Column(nullable = false, length = 25)
     private String name;
 
+    @Column(nullable = false, length = 25)
+    private String surname;
+
     @Column(nullable = false, length = 255)
     private String password;
 
@@ -58,8 +61,24 @@ public class Member {
     private Integer mgr;
 
     @Column(nullable = true)
-    private Boolean tcs;
+    private char tcs;
 
     @OneToOne(mappedBy = "member")
     private EmotionRegulatorApp emotionRegulatorApp;
+
+    public Member(String id_number, byte[] image, String username, String name, String surname, String password,
+            Date dob, char gender, String role, Integer mgr, char tcs, EmotionRegulatorApp emotionRegulatorApp) {
+        this.id_number = id_number;
+        this.image = image;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.dob = dob;
+        this.gender = gender;
+        this.role = role;
+        this.mgr = mgr;
+        this.tcs = tcs;
+        this.emotionRegulatorApp = emotionRegulatorApp;
+    }
 }

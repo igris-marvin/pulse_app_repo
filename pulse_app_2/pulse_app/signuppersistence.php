@@ -53,7 +53,7 @@
         }
 
         //CREATE A DEVICE
-        $sql = "INSERT INTO pulse_detector_device (pulse_rate) VALUES (0)";
+        $sql = "INSERT INTO pulse_detector_device (average) VALUES (0)";
 
         // Assuming $mysqli is your MySQLi database connection
         $conn->query($sql);
