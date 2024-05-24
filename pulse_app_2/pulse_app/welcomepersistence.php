@@ -3,14 +3,14 @@
 function getPulseRate($member_id, $conn) {
     $bpm = 0;
 
-    $sql = "SELECT pulse_rate 
+    $sql = "SELECT average 
             FROM pulse_detector_device p, emotion_regulator_app e 
             WHERE p.device_id = e.pulse_device_id AND e.member_id = $member_id";
 
     $result = $conn->query($sql);
 
     if($row = $result->fetch_assoc()) {
-        $bpm = $row['pulse_rate'];
+        $bpm = $row['average'];
     }
 
     return $bpm;
@@ -49,4 +49,50 @@ function getMood($member_id, $conn) {
     return $mood;
 }
 
+function updatePulseRate($array_vals, $member_id, $conn) {
+    //get device id of user
+    $device_id = null;
+    $array = array_slice($array_vals, -10);
+
+    $sql = "SELECT pulse_device_id FROM emotion_regulator_app WHERE member_id = $member_id";
+
+    $result = $conn->query($sql);
+
+    if($row = $result->fetch_assoc()) {
+        $device_id = $row['pulse_device_id'];
+    }
+
+    //store new bpms into the database
+    foreach($array as $val) {
+        // echo "actual values ( $val )";
+
+        $stmt = $conn->prepare("INSERT INTO readings (pulse_rate, device_id) VALUES (?, ?)");
+                
+        $stmt->bind_param("ii", 
+            $val,
+            $device_id
+        );
+                
+        $stmt->execute();
+    }
+
+    $sum = array_sum($array);
+    $count = count($array);
+
+    // echo "sum ( $sum )";
+    // echo "count ( $count )";
+
+    $average = round($sum / $count);
+
+    $stmt = $conn->prepare("UPDATE pulse_detector_device SET average = ? WHERE device_id = ?");
+                
+    $stmt->bind_param("ii",
+        $average,
+        $device_id
+    );
+    
+    $stmt->execute();
+
+    // echo "average: ( $average )";
+}
 ?>

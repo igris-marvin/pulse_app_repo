@@ -9,6 +9,11 @@ $error = "";
 
 if (isset($_POST['register'])) {
     $idnumber = $_POST['idnumber']; // ID NUMBER
+
+    if(strlen($idnumber) != 13 && !(validateNumber($idnumber))) { //ADD ANOTHER CONDITION
+        $error = "Invalid ID Number";
+    }
+
     $name = $_POST['name']; // NAME
     $surname = $_POST['surname']; // SURNAME
     $username = $_POST['username']; // USERNAME
@@ -56,8 +61,6 @@ if (isset($_POST['register'])) {
     }elseif(validateMaxLength($name) && validateMaxLength($surname) && validateMaxLength($username)) {
 
         $error = "name, surname or username length must be less than 25 characters";
-    }elseif(strlen($idnumber) != 13 && validateNumber($idnumber)) { //ADD ANOTHER CONDITION
-        $error = "Invalid ID Number";
     }
 
     if(empty($error)) {

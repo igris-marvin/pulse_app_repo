@@ -1,6 +1,6 @@
 <?php
 
-function login($username, $password, $conn) {
+function login($username, $password, $array, $conn) {
     $flag = false;
     $member_id = null;
     $device_id = null;
@@ -33,19 +33,9 @@ function login($username, $password, $conn) {
 
         //get first 10 pulse_rates
         if ($result->num_rows > 0) {
-            // User authenticated, process the BPM data
-            $file = fopen('C:/Users/Marvin/Desktop/bmp.txt', 'r');
-            $lines = [];
-
-            while (($line = fgets($file)) !== false) {
-
-                $lines[] = trim($line);
-            }
-
-            fclose($file);
     
             // Get the last 10 records
-            $last10 = array_slice($lines, -10);
+            $last10 = array_slice($array, -10);
             $average = round(array_sum($last10) / count($last10)); //get average of 10 pulse rates
             // $timestamp = date('Y-m-d H:i:s');
     

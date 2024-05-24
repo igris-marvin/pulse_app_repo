@@ -27,118 +27,118 @@
         }
 
         .navbar {
-    width: 100%;
-    height: 10%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #169384;
-    margin-top: 5px;
-    opacity: 85%;
+            width: 100%;
+            height: 10%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #169384;
+            margin-top: 5px;
+            opacity: 85%;
     
-}
+        }
 
-.btn {
-    color: #fbfcfd;
-    padding: 10px 25px;
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 20px;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
-    transition: color 0.3s;
-    position: relative;
-}
-.btn1
-{
-    margin-left: 100px;
-}
+        .btn {
+            color: #fbfcfd;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .btn1
+        {
+            margin-left: 100px;
+        }
 
-.dropdown {
-    position: relative;
-}
+        .dropdown {
+            position: relative;
+        }
 
-.dropdown-btn {
-    color: #fbfcfd;
-    padding: 10px 25px;
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 20px;
-    text-decoration: none;
-    outline: none;
-    cursor: pointer;
-    margin-right: 100px;
-}
-.dropdown-content-burger {
-    display: none;
-    position: absolute;
-    background-color: #74A5A0;
-    min-width: 160px;
-    z-index: 1;
-    
-}
+        .dropdown-btn {
+            color: #fbfcfd;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            margin-right: 100px;
+        }
+        .dropdown-content-burger {
+            display: none;
+            position: absolute;
+            background-color: #74A5A0;
+            min-width: 160px;
+            z-index: 1;
+            
+        }
 
-.dropdown-content-burger a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.3s ease;
-}
+        .dropdown-content-burger a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
 
-.dropdown-content-burger a:hover {
-    background-color: #f9f9f9;
-    color: black;
-}
+        .dropdown-content-burger a:hover {
+            background-color: #f9f9f9;
+            color: black;
+        }
 
-.dropdown:hover .dropdown-content-burger {
-    display: block;
-}
+        .dropdown:hover .dropdown-content-burger {
+            display: block;
+        }
 
 
-.btn:hover {
-    color: aqua
-}
+        .btn:hover {
+            color: aqua
+        }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #74A5A0;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #74A5A0;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            top: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
 
-.burger-icon {
-   cursor: pointer;
-}
+        .burger-icon {
+        cursor: pointer;
+        }
 
-.contact-info {
-    display: none;
-    width: 105px;
-    height: 20px;
-    position: absolute;
-    background-color: #74A5A0;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .contact-info {
+            display: none;
+            width: 105px;
+            height: 20px;
+            position: absolute;
+            background-color: #74A5A0;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            top: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-.btn:hover .contact-info {
-    display: block;
-}
+        .btn:hover .contact-info {
+            display: block;
+        }
         .bubbles img
         {
             width: 50px;
@@ -235,7 +235,6 @@
             <div class="dropdown-content-burger">
                 <a href="system.php">Our Journey</a>
                 <a href="us.php">About Us</a>
-                <a href="report_page.php">Report Pages</a>
                 <a href="admin_login.php">Admin Login</a>
             </div>
         </div>

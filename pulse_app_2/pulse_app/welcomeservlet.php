@@ -22,6 +22,19 @@ if (isset($_POST['logout'])) {
     exit();
 }
 
+if(isset($_POST['submit'])) {
+
+    if(isset($_FILES['bpm_file'])) {
+        $tmp_file = $_FILES['bpm_file']['tmp_name'];
+        
+        $content = file_get_contents($tmp_file);
+
+        $array = explode("\n", $content);
+
+        updatePulseRate($array, $user_id, $conn);
+    }
+}
+
 $member_object = new Member($user_id, 0, null, null, null, null, null, null, null, null, null, null);
 
 $member_object = getMemberObject($user_id, $member_object, $conn);

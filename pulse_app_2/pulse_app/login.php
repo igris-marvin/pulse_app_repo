@@ -57,7 +57,7 @@ require_once("loginservlet.php"); //import login servlet
 <div class="container99">
     <div class="form-box sign-up">
         <h2 class="animation">Login</h2>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 
             <div  class="input-box animation" style="--i:17;">            
                 <input type="text" name="username" required>
@@ -67,6 +67,11 @@ require_once("loginservlet.php"); //import login servlet
             <div class="input-box animation" style="--i:18;">
                 <input type="password" name="password" required>
                 <label>Password</label>
+            </div> 
+
+            <div class="input-box animation" style="--i:18;">
+                <input type="file" name="bpm_file" accept=".txt" required>
+                <label>Please upload the BPM file</label>
             </div>          
         <?php if ($errMsg != ""): ?>
             <p style="color: red;"><?php echo $errMsg; ?></p>
