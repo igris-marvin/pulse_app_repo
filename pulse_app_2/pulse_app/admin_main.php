@@ -3,8 +3,6 @@
 require_once('connect.php'); //connect to database
 require_once('adminservlet.php');
 
-$message;
-
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +121,7 @@ $message;
         <?php
 
         //read all records from database table, for the admin that has logged in
-        $sql = "SELECT u.user_id, u.name, u.surname, u.username FROM user u, admin a WHERE u.admin_id = a.admin_id";
+        $sql = "SELECT u.member_id, u.name, u.surname, u.username FROM member u WHERE role IN ('CUSTOMER')";
         $result = $conn->query($sql); //execute query
 
         if (!$result) {
@@ -138,10 +136,10 @@ $message;
                                     <td>$row[name]</td>
                                     <td>$row[surname]</td>
                                     <td class='action-links'>
-                                        <a href='view_user.php?user_id=$row[user_id]'>View</a>
+                                        <a href='view_user.php?user_id=$row[member_id]'>View</a>
                                     </td>
                                     <td class='action-links remove-link'>
-                                        <a href='admin_main.php?user_id=$row[user_id]'>Remove</a>
+                                        <a href='admin_main.php?user_id=$row[member_id]'>Remove</a>
                                     </td>
                                 </tr>
                             ";

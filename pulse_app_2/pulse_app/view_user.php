@@ -1,51 +1,6 @@
 <?php 
 
-// Check if the 'user_id' parameter is set in the URL
-if(isset($_GET['user_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $user_id = $_GET['user_id'];
-    
-    // Now you can use $user_id in your queries or other operations
-    // For example, you can retrieve user details from the database based on this ID
-    // Make sure to use proper prepared statements to prevent SQL injection
-} else {
-    // Handle the case where 'id' parameter is not set
-    echo "User ID is not provided in the URL.";
-}
-
-require_once("connect.php");
-
-//read all records from database table
-$sql = "SELECT * 
-        FROM pulse 
-        WHERE user_id = $user_id";
-
-$result = $connection->query($sql); //execute query
-
-if(!$result) {
-    die("Invalid query: " . $connection->error);
-}
-
-if($row = $result->fetch_assoc()) {
-    $pulse = $row['pulse_rate'];
-}
-
-$sql = "SELECT * 
-        FROM user 
-        WHERE user_id = $user_id";
-
-$result = $connection->query($sql); //execute query
-
-if(!$result) {
-    die("Invalid query: " . $connection->error);
-}
-
-if($row = $result->fetch_assoc()) {
-    $id = $row['user_id'];
-    $username = $row['username'];
-    $name = $row['name'];
-    $surname = $row['surname'];
-}
+require_once("view_user_servlet.php");
 
 ?>
 
