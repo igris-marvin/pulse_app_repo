@@ -1,68 +1,7 @@
 <?php
-session_start();
 
-require_once("connect.php");
+require_once("welcomeservlet.php");
 
-$user_id;
-
-// Retrieve user information from database
-if(isset($_GET['user_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $user_id = $_GET['user_id'];
-    
-    // Now you can use $user_id in your queries or other operations
-    // For example, you can retrieve user details from the database based on this ID
-    // Make sure to use proper prepared statements to prevent SQL injection
-} else {
-    // Handle the case where 'id' parameter is not set
-    echo "User ID is not provided in the URL.";
-    header("Location: login.php");
-    exit();
-}
-
-$row;
-$name;
-$surname;
-$username;
-$bpm;
-
-$sql = "SELECT pulse_rate FROM pulse WHERE user_id = $user_id";
-$result = $connection->query($sql);
-
-if($row = $result->fetch_assoc()) {
-    $bpm = $row['pulse_rate'];
-}
-
-$sql = "SELECT * FROM user WHERE  user_id = $user_id";
-$result = $connection->query($sql);
-
-if($row = $result->fetch_assoc()) {
-    
-    $name = $row['name'];
-    $surname = $row["surname"];
-    $username = $row["username"];
-
-    function getMood($bpm) {
-        if ($bpm >= 80) {
-            return "Happy";
-        } elseif ($bpm >= 60 && $bpm < 80) {
-            return "Moderate";
-        } else {
-            return "Sad";
-        }
-    
-        if (isset($_POST['logout'])) {
-            session_unset();
-            session_destroy();
-            header('Location: index.php');
-            exit();
-        }
-    }
-
-    $mood = getMood($bpm);
-}
-
-mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +14,7 @@ mysqli_close($connection);
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
     <script src="scriptMusic.js" defer></script>
     <link rel="stylesheet" href="stylyWelcome.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnectionect" href="https://fonts.googleapis.com">
@@ -118,11 +58,32 @@ mysqli_close($connection);
     <div class="pulse-data">
        <p><a href="logout.php" class="logoutBtn"><i class='bx bx-log-out-circle'></i>Logout</a></p>     
     </div>
+    
+    <div class="pulse-data">
+        <form method="POST" enctype="multipart/form-data">
+            <p>
+                    <input type="file" accept=".txt" name="bpm_file" />
+                    <input type="submit" name="submit" value="upload"/>
+            </p>     
+        </form>
+    </div>
+    
+    <div class="pulse-data">
+        <?php
+          echo "<p><a href='/pulse_app_2/pulse_app/dashboard/index.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Summary</a></p>"   
+        ?>
+    </div>
+    
+    <div class="pulse-data">
+        <?php
+          echo "<p><a href='FeedBackReport.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Reports</a></p>"   
+        ?>
+    </div>
 
     <div class="panel1">
 
     <?php echo "
-    <a href='user_account.php?user_id={$row['user_id']}' class='remove-decoration'>
+    <a href='user_account.php?user_id=$user_id' class='remove-decoration'>
 "
 ?>
 
