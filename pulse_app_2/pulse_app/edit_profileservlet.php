@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
 
-    $image = null; // IMAGE
+    // echo "dadsdoads";
 
     if(isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK){
         // Get the image data
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $error;
 
-    if(validateUsername($username)) {
+    if( validateUsername($username) ) {
         
         echo '<p style="color:red; font-size:30px; margin-right:1000px;font-weight: 600;">Invalid username</p>';
         $error = "not empty";

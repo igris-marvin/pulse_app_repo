@@ -1,8 +1,9 @@
 <?php
-// Database connection
-require_once("loginservlet.php"); //import login servlet
+
+require_once("loginservlet.php")
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +15,8 @@ require_once("loginservlet.php"); //import login servlet
     <title>Login</title>
 
     <style>
-        .container99
-        {
+        /* Base styles */
+        .container99 {
             background-color: black;
             height: 600px;
             padding: 30px;
@@ -23,12 +24,11 @@ require_once("loginservlet.php"); //import login servlet
             background: transparent;
         }
 
-        .navbar
-        {          
-           margin-bottom: 10%;         
+        .navbar {          
+            margin-bottom: 10%;         
         }
-        .btn6
-        {
+
+        .btn6 {
             color: #fbfcfd;
             padding: 10px 25px;
             background: transparent;
@@ -39,27 +39,53 @@ require_once("loginservlet.php"); //import login servlet
             cursor: pointer;
             transition: color 0.3s;            
             margin-bottom: 100px;
-            
-           
-        }
-        .btn6:hover
-        {
-            color: aqua            
         }
 
-        .fileEdit
-        {
+        .btn6:hover {
+            color: aqua;           
+        }
+
+        .fileEdit {
             margin-top: 20px;
         }
-        .btn7
-        {
+
+        .btn7 {
             margin-top: 20px;
+        }
+
+        /* Responsive styles */
+        @media only screen and (max-width: 768px) {
+            .container99 {
+                height: auto;
+            }
+
+            .btn6 {
+                margin-bottom: 50px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .btn6 {
+                margin-bottom: 20px;
+            }
+        }
+        .upload_file
+        {
+            color: white;
+            font-size: 15px;
+        }
+        .upload_button
+        {
+            color: red;
+            font-size: 15px;
+        }
+        .back-button
+        {
+            width: 465px;
         }
     </style>
 </head>
 <body>
-
-  
 
 <div class="container99">
     <div class="navbar">
@@ -68,7 +94,6 @@ require_once("loginservlet.php"); //import login servlet
     <div class="form-box sign-up">
         <h2 class="animation">Login</h2>
         <form method="POST" enctype="multipart/form-data">
-
             <div  class="input-box animation" style="--i:17;">            
                 <input type="text" name="username" required>
                 <label>Username</label>
@@ -81,37 +106,35 @@ require_once("loginservlet.php"); //import login servlet
 
             <div class="upload" style="--i:19;">
                 <div class="fileEdit">
-                    <input type="file" name="bpm_file" accept=".txt" required>
-                    <label>Please upload the BPM file</label>
+                    <input class="upload_button" type="file" name="bpm_file" accept=".txt" required>
+                    <label class="upload_file">Please upload the BPM file</label>
                 </div>
-                
             </div>          
-        <?php if ($errMsg != ""): ?>
-            <p style="color: red;"><?php echo $errMsg; ?></p>
-        <?php endif; ?>
+            <?php if ($errMsg != ""): ?>
+                <p style="color: red;"><?php echo $errMsg; ?></p>
+            <?php endif; ?>
             
-            <input type="submit" name="register" class="btn btn7 animation" style="--i:19;"; value="Login">
+            <input type="submit" name="register" class="btn btn7 animation" style="--i:19;" value="Login">
                 
             <div class="form-box login">
-                
-            <div class="animation">
-                <p><a href="signup.php" class="back-link animation" style="--i:0;">Back</a></p>        
-            </div>  
+                <div class="animation">
+                    <p><a href="index.php" class="back-link animation back-button" style="--i:0;">Back</a></p>        
+                </div>  
+            </div> 
         </form>
-    </div> 
+    </div>
 </div>
 
-    <div class="bubbles">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-            <img src="images/bubble.png">
-    </div>
-     
-  
-    <script src="script.js"></script>
+<div class="bubbles">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+    <img src="images/bubble.png">
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

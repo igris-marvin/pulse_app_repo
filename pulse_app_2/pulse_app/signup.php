@@ -117,7 +117,7 @@ require_once("signupservlet.php");
             </div>
 
             <div class="tc input-box animation"  style="--i:24;">
-                <label for="terms">I agree to the <a href="terms_and_conditions.php" target="blank">Terms and Conditions</a></label>
+                I agree to the <a href="terms_and_conditions.php">Terms and Conditions</a>
             </div>
             
             <input type="submit" name="register" class="btn animation" style="--i:22;"; value="Sign Up">

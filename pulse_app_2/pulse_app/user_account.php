@@ -137,15 +137,15 @@ require_once("user_accountservlet.php");
             </tr>
             <tr>
                 <td colspan="2">
-                <form method="post">
-                        <?php echo " 
-                    <input type='hidden' name='del_id' value='$member_id'>"  ?> <!-- Replace 123 with the actual user ID -->
-                        <!-- Add a submit button -->
-                        <div class="movBtn">
-                        <button type="submit" name="delete_user" class='profile-link'>Delete User</button>
-                        </div>
-                   
-                </form>
+                    <form method="POST">
+                            <?php echo " 
+                            <input type='hidden' name='del_id' value='$member_id'>"  ?> <!-- Replace 123 with the actual user ID -->
+                            <!-- Add a submit button -->
+                            <div class="movBtn">
+                            <button type="submit" name="delete_user" class='profile-link'>Delete User</button>
+                            </div>
+                    
+                    </form>
                 </td>
             </tr>
         </table>

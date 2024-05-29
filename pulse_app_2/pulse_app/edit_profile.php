@@ -20,7 +20,7 @@ require_once("edit_profileservlet.php");
 <body>
     <div class="panel1">
     <h1 class="heading1">Edit Profile</h1>
-    <form method="POST" enctype="">
+    <form method="POST" enctype="multipart/form-data">
         <div class="form-box sign-up">
 
         <div  class="input-box animation" style="--i:17;"> 

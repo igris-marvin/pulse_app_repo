@@ -36,29 +36,62 @@ function getDefaultImage($conn) {
     return $image;
 }
 
-function deleteUser($del_id, $conn) {
+function deleteUser($member_id, $conn) {
     // Define the variable to hold device_id
-    $device_id;
+    $device_id = null;
+    
+    //get user device id
+    $sql = "SELECT pulse_device_id FROM emotion_regulator_app WHERE member_id = $member_id";
 
-    // Select the pulse_device_id from emotion_regulator_app table
-    $sql = "SELECT pulse_device_id FROM emotion_regulator_app WHERE member_id = $del_id";
     $result = $conn->query($sql);
 
-    if ($row = $result->fetch_assoc()) {
+    if( ($row = $result->fetch_assoc()) ) {
         $device_id = $row['pulse_device_id'];
     }
 
-    // Delete records from emotion_regulator_app table
-    $sql = "DELETE FROM emotion_regulator_app WHERE member_id = $del_id";
-    $conn->query($sql);
+    //remove user pulse data
+    $sql = "DELETE FROM readings WHERE device_id = ?";
 
-    // Delete records from pulse_detector_device table
-    $sql = "DELETE FROM pulse_detector_device WHERE device_id = $device_id";
-    $conn->query($sql);
+    $stmt = $conn->prepare($sql);
 
-    // Delete records from member table
-    $sql = "DELETE FROM member WHERE member_id = $del_id";
-    $conn->query($sql);
+    $stmt->bind_param("i",
+        $device_id
+    );
+
+    $stmt->execute();
+
+    //remove user app
+    $sql = "DELETE FROM emotion_regulator_app WHERE member_id = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param("i",
+        $member_id
+    );
+
+    $stmt->execute();
+
+    //remove user device
+    $sql = "DELETE FROM pulse_detector_device WHERE device_id = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param("i",
+        $device_id
+    );
+
+    $stmt->execute();
+
+    //remove user account
+    $sql = "DELETE FROM member WHERE member_id = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param("i",
+        $member_id
+    );
+
+    $stmt->execute();
 }
 
 ?>
