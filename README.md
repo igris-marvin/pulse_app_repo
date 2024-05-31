@@ -8,32 +8,41 @@ clients are able to create and manage their own account on the 'Pulse App'
 
 It also includes a music player with limited songs(soon to be updated) where the user can play their choice of music
 
+Software Program
+  > xampp
+
 Integrated Development Environment:
-> Virtual Studio Code
+  > Virtual Studio Code
 
 Programming Languages:
-> php
-> HTML
-> CSS
-> Bootstrap CSS
-> javascript
-> node js
-> Apache HTTP Server
+  > php
+  > HTML
+  > CSS
+  > Bootstrap CSS
+  > javascript
+  > Node js
+
+Web server
+  > Apache HTTP Server
 
 Database Management System:
-> MySQL / MariaDB
+  > MySQL / MariaDB
+
+Source Code Management:
+  > GitHub
+
+The pulse detector device was programmed using the following tools
 
 Integrated Development Environment (IDE)
-Arduino
-Cool Term
+  > Arduino
+  > Cool Term
 
 TOOLS
-I2C 1602 LCD display
-Jumper wires
-Arduino board 
-USB cable type B
-Pulse sensor 
+  > I2C 1602 LCD display
+  > Jumper wires
+  > Arduino board 
+  > USB cable type B
+  > Pulse sensor 
 
 Programming Languages 
-
-C/C++
+  > C/C++
