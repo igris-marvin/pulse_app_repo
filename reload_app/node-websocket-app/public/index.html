@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Update Example</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const valueElement = document.getElementById('value');
+            const ws = new WebSocket('ws://10.2.33.45:3000'); // Replace 192.168.1.x with the server's IP address
+
+            ws.onmessage = (event) => {
+                valueElement.innerText = event.data;
+            };
+
+            ws.onopen = () => {
+                console.log('WebSocket connection opened');
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket connection closed');
+            };
+        });
+    </script>
+</head>
+<body>
+    <h1>Value from Database:</h1>
+    <p id="value">Loading...</p>
+</body>
+</html>
