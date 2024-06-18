@@ -27,18 +27,16 @@ public class PulseDetectorDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer device_id;
-    private Integer average;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
-    private List<Readings> reading;
+    private List<PulseData> pulse_data;
 
     @OneToOne(mappedBy = "pulseDetectorDevice")
     private EmotionRegulatorApp emotionRegulatorApp;
 
-    public PulseDetectorDevice(Integer average, List<Readings> reading, EmotionRegulatorApp emotionRegulatorApp) {
-        this.average = average;
-        this.reading = reading;
+    public PulseDetectorDevice(List<PulseData> pulse_data, EmotionRegulatorApp emotionRegulatorApp) {
+        this.pulse_data = pulse_data;
         this.emotionRegulatorApp = emotionRegulatorApp;
     }
 }

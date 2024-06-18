@@ -1,5 +1,7 @@
 package com.swp.k.persistence.entity;
 
+import java.util.List;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,8 +31,9 @@ public class EmotionRegulatorApp {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer pulse_app_id;
 
-    @Column(length = 25, nullable = true)
-    private String mood;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "pulse_app_id")
+    private List<Reading> readings;
     
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "pulse_device_id")
@@ -39,8 +43,9 @@ public class EmotionRegulatorApp {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public EmotionRegulatorApp(String mood, PulseDetectorDevice pulseDetectorDevice) {
-        this.mood = mood;
+    public EmotionRegulatorApp(List<Reading> readings, PulseDetectorDevice pulseDetectorDevice, Member member) {
+        this.readings = readings;
         this.pulseDetectorDevice = pulseDetectorDevice;
+        this.member = member;
     }
 }

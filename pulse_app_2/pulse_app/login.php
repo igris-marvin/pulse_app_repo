@@ -104,12 +104,12 @@ require_once("loginservlet.php")
                 <label>Password</label>
             </div> 
 
-            <div class="upload" style="--i:19;">
+            <!-- <div class="upload" style="--i:19;">
                 <div class="fileEdit">
                     <input class="upload_button" type="file" name="bpm_file" accept=".txt" required>
                     <label class="upload_file">Please upload the BPM file</label>
                 </div>
-            </div>          
+            </div>           -->
             <?php if ($errMsg != ""): ?>
                 <p style="color: red;"><?php echo $errMsg; ?></p>
             <?php endif; ?>
