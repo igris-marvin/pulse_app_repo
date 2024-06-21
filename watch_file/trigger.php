@@ -1,5 +1,5 @@
 <?php
-$nodeServerUrl = 'http://localhost:3000/start-watching'; // Replace with your Node.js server URL
+$nodeServerUrl = 'http://:3000/start-watching'; // Replace with your Node.js server URL
 
 // Build the URL with the member ID as a query parameter
 $urlWithMemberId = $nodeServerUrl . '?memberId=' . urlencode($memberId);
