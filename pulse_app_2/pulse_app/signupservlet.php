@@ -10,7 +10,7 @@ $error = "";
 if (isset($_POST['register'])) {
     $idnumber = $_POST['idnumber']; // ID NUMBER
 
-    if(strlen($idnumber) != 13 && !(validateNumber($idnumber))) { //ADD ANOTHER CONDITION
+    if(strlen($idnumber) != 13 || !(validateNumber($idnumber))) { //ADD ANOTHER CONDITION
         $error = "Invalid ID Number";
     }
 

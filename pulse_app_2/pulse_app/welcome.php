@@ -152,15 +152,6 @@ require_once("welcomeservlet.php");
                          </div>
                          
                          <div class="pulse-data">
-                             <form method="POST" enctype="multipart/form-data">
-                                 <p>
-                                         <input type="file" accept=".txt" name="bpm_file" />
-                                         <input type="submit" name="submit" value="upload"/>
-                                 </p>     
-                             </form>
-                         </div>
-                         
-                         <div class="pulse-data">
                              <?php
                                echo "<p><a href='/pulse_app_2/pulse_app/dashboard/index.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Summary</a></p>"   
                              ?>

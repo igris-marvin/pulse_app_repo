@@ -21,7 +21,7 @@ public class PulseData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reading_id;
+    private Integer pulse_id;
     private Integer pulse_rate;
 
     @Temporal(value = TemporalType.TIMESTAMP)

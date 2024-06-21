@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.swp.k.persistence.entity.PulseData;
 
 @Repository
-public interface PulseDataRepository extends JpaRepository<PulseData, Integer>{
+public interface PulseDataRepository extends JpaRepository<PulseData, Integer> {
     
 }

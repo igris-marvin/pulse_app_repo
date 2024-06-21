@@ -53,7 +53,7 @@
         }
 
         //CREATE A DEVICE
-        $sql = "INSERT INTO pulse_detector_device (average) VALUES (0)";
+        $sql = "INSERT INTO pulse_detector_device VALUES ()";
 
         // Assuming $mysqli is your MySQLi database connection
         $conn->query($sql);
@@ -85,6 +85,7 @@
 
     //PERSISTENCE FUNCTION FOR GETTING USERNAMES
     function testUsername($username, $error, $conn) {
+
         $sql = "SELECT username FROM member";
         $result = $conn->query($sql);
 
@@ -110,7 +111,7 @@
         }
 
         if($row = $result->fetch_assoc()) {
-            //store admin ids inside an array
+
             $mgr = $row['member_id'];
 
             return $mgr;
