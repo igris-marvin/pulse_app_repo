@@ -227,7 +227,7 @@
 <body>
     <div class="hero">
         <div class="navbar">
-        <a href="https://chat.whatsapp.com/HG78Iyx4Kyw7KViaq5OV9L" class="btn1 btn">Contact Us<span class="contact-info">081-355-6089</span></a>
+        <a href="https://chat.whatsapp.com/HG78Iyx4Kyw7KViaq5OV9L" class="btn1 btn">Contact Us</a>
         <a href="signup.php" class="btn">Sign Up</a>
         <a href="login.php" class="btn">Login</a>
         <div class="dropdown">

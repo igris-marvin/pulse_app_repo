@@ -11,7 +11,7 @@
     <div class="hero">
         <div class="navbar">
             <a href="index.php" class="btn btn1">Home</a>
-            <a href="#" class="btn">Contact Us<span class="contact-info">081-355-6089</span></a>
+            <a href="https://chat.whatsapp.com/HG78Iyx4Kyw7KViaq5OV9L" class="btn">Contact Us</a>
             <div class="dropdown">
                 <button class="dropdown-btn">&#9776;</button>
                 <div class="dropdown-content-burger">

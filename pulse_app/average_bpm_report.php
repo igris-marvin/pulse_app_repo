@@ -57,8 +57,19 @@ require_once("average_servlet.php"); // File to handle database connection
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div style="margin-left: 900px;" class="collapse navbar-collapse fs-4" id="navbarNav">
+              <div style="margin-left: 800px;" class="collapse navbar-collapse fs-4" id="navbarNav">
                 <ul class="navbar-nav">
+                  <li  style="margin-right: 40px;" class="nav-item">
+                    <a>
+                        <?php
+                            echo "
+                                <a href='user_account.php?user_id=$user_id'>
+                                    <i class='nav-link bi bi-download'></i>
+                                </a>
+                            "
+                        ?>
+                    </a>
+                  </li>
                   <li  style="margin-right: 40px;" class="nav-item">
                     <a>
                         <?php
@@ -75,10 +86,10 @@ require_once("average_servlet.php"); // File to handle database connection
                     <a>
                         <?php
                             echo "
-                                <a href='user_account.php?user_id=$user_id'>
-                                    <i class='nav-link bi bi-box-arrow-left'></i>
-                                </a>
-                            "
+                                    <a href='welcome.php?user_id=$user_id'>
+                                        <i class='nav-link bi bi-box-arrow-left'></i>
+                                    </a>
+                                "
                         ?>
                     </a>
                   </li>
@@ -88,19 +99,34 @@ require_once("average_servlet.php"); // File to handle database connection
         </nav>
 
         <div class="container">
+
+        <?php
+
+            if(count($avg_bpms) < 1) {
+
+                echo "
+                <center>
+                    <div class='container'>
+                            <h1 class='fs-1'>No Data Found</h1>
+                    </div>
+                </center>
+                ";
+            } else {
             
-            <table class="table caption-top table-striped">
-                <caption>List of users</caption>
+            echo "
+            <table class='table caption-top table-striped'>
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Average BPM</th>
-                    <th scope="col">Mood</th>
-                    <th scope="col">Time Recorded</th>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Average BPM</th>
+                    <th scope='col'>Mood</th>
+                    <th scope='col'>Date</th>
+                    <th scope='col'>Time</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                     
+                        ";
                     
                         for($x = 0; $x < count($avg_bpms); $x++) {
                             $number++;
@@ -108,16 +134,19 @@ require_once("average_servlet.php"); // File to handle database connection
                             echo "
                                 <tr>
                                     <th scope='row'>$number</th>
-                                    <td>$avg_bpm[$x]</td>
+                                    <td>$avg_bpms[$x]</td>
                                     <td>$moods[$x]</td>
+                                    <td>$dates[$x]</td>
                                     <td>$times[$x]</td>
                                 </tr>
                                 ";
                         }
-                    ?>
+                    echo "
                 </tbody>
               </table>
-
+                    ";
+                    }
+              ?>
         </div>
 
         <!-- Bootstrap Bundle with Popper -->
