@@ -11,11 +11,11 @@ if(isset($_POST['login'])) {
 
     if(validateUsername($username)) {
     
-        $sql = "SELECT * FROM admin";
-        $result = $connection->query($sql); //execute query
+        $sql = "SELECT username, password FROM member WHERE role = 'ADMIN'";
+        $result = $conn->query($sql); //execute query
     
         if (!$result) {
-            die("Invalid query: " . $connection->error);
+            die("Invalid query: " . $conn->error);
         }
     
         //read each record from table
@@ -23,7 +23,7 @@ if(isset($_POST['login'])) {
             if($username == $row["username"] && $password == $row["password"] ) {
                 header("Location: admin_main.php");
             } else {
-                $error = "Invalid admin username or password";
+                $error = "Invalid username or password";
             }
         }
     } else {
@@ -146,7 +146,7 @@ function validateUsername($text) {
                     <td colspan="2" align="center"><button class="" type="submit" name="login">Log In</button></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="back-link">Not an Administrator? Click <a href="signup.php">here</a> to go back</td>
+                    <td colspan="2" class="back-link">Not an Administrator? Click <a href="index.php">here</a> to go back</td>
                 </tr>
             </table>
         </form>

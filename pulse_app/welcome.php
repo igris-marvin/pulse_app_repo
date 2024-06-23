@@ -48,44 +48,90 @@ require_once("welcomeservlet.php");
             background-color: darkslategray;
         }
 
-       
+        /* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+} */
+
+.user-icon img {
+    width: 100px;  /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 50%;
+    border: 2px solid #ddd; /* Optional: adds a border around the icon */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+    
+    display: flex;
+            justify-content: center;
+            margin-top: 50px;            
+            margin-left: 45px;
+}
+
     </style>
     
 </head>
   
 <body>
-    
-    <div class="pulse-data">
-       <p><a href="logout.php" class="logoutBtn"><i class='bx bx-log-out-circle'></i>Logout</a></p>     
+    <div class="left-bar">
+        <div class="player">
+        <div class="wrapper">
+            <div class="details">
+                <div class="now-playing">PLAYING x OF y</div>
+                <div class="track-art"></div>
+                <div class="track-name">Track Name</div>
+                <div class="track-artist">Track Artist</div>
+            </div>
+
+            <div class="slider_container">
+                <div class="current-time">00:00</div>
+                    <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+                    <div class="total-duration">00:00</div>
+            </div>
+
+            <div class="slider_container">
+                <i class="fa fa-volume-down"></i>
+                    <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+                    <i class="fa fa-volume-up"></i>
+            </div>
+
+            <div class="buttons">
+                <div class="random-track" onclick="randomTrack()">
+                    <i class="fas fa-random fa-2x" title="random"></i>
+                </div>
+                <div class="prev-track" onclick="prevTrack()">
+                        <i class="fa fa-step-backward fa-2x"></i>
+                    </div>
+                    <div class="playpause-track" onclick="playpauseTrack()">
+                        <i class="fa fa-play-circle fa-5x"></i>
+                    </div>
+                    <div class="next-track" onclick="nextTrack()">
+                        <i class="fa fa-step-forward fa-2x"></i>
+                    </div>
+                    <div class="repeat-track" onclick="repeatTrack()">
+                        <i class="fa fa-repeat fa-2x" title="repeat"></i>
+                    </div>
+            </div>
+            
+
+                <div id="wave">
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                    <span class="stroke"></span>
+                </div>  
+        </div>
     </div>
+</div>
     
-    <div class="pulse-data">
-        <form method="POST" enctype="multipart/form-data">
-            <p>
-                    <input type="file" accept=".txt" name="bpm_file" />
-                    <input type="submit" name="submit" value="upload"/>
-            </p>     
-        </form>
-    </div>
-    
-    <div class="pulse-data">
-        <?php
-          echo "<p><a href='/pulse_app_2/pulse_app/dashboard/index.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Summary</a></p>"   
-        ?>
-    </div>
-    
-    <div class="pulse-data">
-        <?php
-          echo "<p><a href='FeedBackReport.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Reports</a></p>"   
-        ?>
-    </div>
+
 
     <div class="panel1">
-
-    <?php echo "
-    <a href='user_account.php?user_id=$user_id' class='remove-decoration'>
-"
-?>
 
 
         <div class="container1" class="remove-decoration">
@@ -107,58 +153,65 @@ require_once("welcomeservlet.php");
                     <p   class="textSessionMood"><span class="moodText"><?php echo $mood; ?></span></p> 
                 </div>
         </div>
+
+       
     </div>
 
     <div class="music-player">
             <div class="player">
             <div class="wrapper">
                 <div class="details">
-                    <div class="now-playing">PLAYING x OF y</div>
-                    <div class="track-art"></div>
-                    <div class="track-name">Track Name</div>
-                    <div class="track-artist">Track Artist</div>
+                    <div class="now-playing">
+
+                        <!-- <div class="pulse-data"> -->
+                            <?php
+                               echo "<p><a href='user_account.php?user_id=$user_id' class='user-icon'>
+                               <div class='user-icon'>
+                               
+                                <img src='$image_data'  />
+                               </div>
+                               </a></p>"   
+                             ?>    
+                         <!-- </div> -->
+                        
+                        <div class="pulse-data">
+                            <p><a href="logout.php" class="logoutBtn"><i class='bx bx-log-out-circle'></i>Logout</a></p>     
+                         </div>
+                         
+                         <div class="pulse-data">
+                             <?php
+                               echo "<p><a href='/pulse_app/dashboard/index.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Summary</a></p>"   
+                             ?>
+                         </div>
+                         
+                         <div class="pulse-data">
+                             <?php
+                               echo "<p><a href='FeedBackReport.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Feedback Reports</a></p>"   
+                             ?>
+                         </div>
+                         
+                         <div class="pulse-data">
+                             <?php
+                               echo "<p><a href='average_bpm_report.php?user_id=$user_id' class='logoutBtn'><i class='bx bx-log-out-circle'></i>Average BPM Report</a></p>"   
+                             ?>
+                         </div>
+
+                    </div>
+                    
                 </div>
 
                 <div class="slider_container">
-                    <div class="current-time">00:00</div>
-                        <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
-                        <div class="total-duration">00:00</div>
+                    
                 </div>
 
-                <div class="slider_container">
-                    <i class="fa fa-volume-down"></i>
-                        <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
-                        <i class="fa fa-volume-up"></i>
-                </div>
+                
 
                 <div class="buttons">
-                    <div class="random-track" onclick="randomTrack()">
-                        <i class="fas fa-random fa-2x" title="random"></i>
-                    </div>
-                    <div class="prev-track" onclick="prevTrack()">
-                            <i class="fa fa-step-backward fa-2x"></i>
-                        </div>
-                        <div class="playpause-track" onclick="playpauseTrack()">
-                            <i class="fa fa-play-circle fa-5x"></i>
-                        </div>
-                        <div class="next-track" onclick="nextTrack()">
-                            <i class="fa fa-step-forward fa-2x"></i>
-                        </div>
-                        <div class="repeat-track" onclick="repeatTrack()">
-                            <i class="fa fa-repeat fa-2x" title="repeat"></i>
-                        </div>
+                   
                 </div>
                 
 
-                    <div id="wave">
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                        <span class="stroke"></span>
-                    </div>  
+                   
             </div>
         </div>
     </div>

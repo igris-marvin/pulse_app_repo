@@ -1,49 +1,7 @@
 <?php
 
 require_once('connect.php'); //connect to database
-
-$message;
-
-if(isset($_GET['user_id'])) {
-    $del_id = $_GET['user_id'];
-
-    //CHECK IF USER EXISTS
-    $sql = "SELECT user_id FROM user WHERE user_id = $del_id";
-    $result = $connection->query($sql); //execute query
-
-    if (!$result) {
-        die("Invalid query: " . $connection->error);
-    }
-
-    //read each record from table
-    if ($row = $result->fetch_assoc()) {
-            
-        // DELETE PULSE RECORDS FIRST
-        $sql_pulse = "DELETE FROM pulse WHERE user_id = $del_id";
-        $update_pulse = $connection->prepare($sql_pulse);
-        $update_pulse->execute();
-
-        // CHECK IF DELETION OF PULSE RECORDS WAS SUCCESSFUL
-        if($update_pulse->error) {
-            die("Error deleting pulse records: " . $update_pulse->error);
-        }
-
-        // DELETE USER
-        $sql_user = "DELETE FROM user WHERE user_id = $del_id";          
-        $update_user = $connection->prepare($sql_user);
-        $update_user->execute();
-
-        // CHECK IF DELETION OF USER WAS SUCCESSFUL
-        if($update_user->error) {
-            die("Error deleting user: " . $update_user->error);
-        } else {
-            $message = "User deleted succesfully";
-        }
-
-    } else {
-        $message;
-    }
-}
+require_once('adminservlet.php');
 
 ?>
 
@@ -163,11 +121,11 @@ if(isset($_GET['user_id'])) {
         <?php
 
         //read all records from database table, for the admin that has logged in
-        $sql = "SELECT u.user_id, u.name, u.surname, u.username FROM user u, admin a WHERE u.admin_id = a.admin_id";
-        $result = $connection->query($sql); //execute query
+        $sql = "SELECT u.member_id, u.name, u.surname, u.username FROM member u WHERE role IN ('CUSTOMER')";
+        $result = $conn->query($sql); //execute query
 
         if (!$result) {
-            die("Invalid query: " . $connection->error);
+            die("Invalid query: " . $conn->error);
         }
 
         //read each record from table
@@ -178,17 +136,17 @@ if(isset($_GET['user_id'])) {
                                     <td>$row[name]</td>
                                     <td>$row[surname]</td>
                                     <td class='action-links'>
-                                        <a href='view_user.php?user_id=$row[user_id]'>View</a>
+                                        <a href='view_user.php?user_id=$row[member_id]'>View</a>
                                     </td>
                                     <td class='action-links remove-link'>
-                                        <a href='admin_main.php?user_id=$row[user_id]'>Remove</a>
+                                        <a href='admin_main.php?user_id=$row[member_id]'>Remove</a>
                                     </td>
                                 </tr>
                             ";
         }
         ?>
         <tr>
-            <td colspan="4"><a href="signup.php" class="logout-link">Log Out</a></td>
+            <td colspan="4"><a href="admin_login.php" class="logout-link">Log Out</a></td>
         </tr>
     </table>
 </div>

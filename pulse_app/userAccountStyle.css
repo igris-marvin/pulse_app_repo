@@ -17,15 +17,14 @@ body {
 
 .panel1
 {
-   
-    font-family: "Roboto", sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;    
-    animation: slideIn 1s ease-in-out;
-    height: 600px;
-    padding: 20px;
+            font-family: "Roboto", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: slideIn 1s ease-in-out;
+            height: 600px;
+            padding: 20px;
             border-radius: 8px;
             width: 290px;
             max-width: 600px;
@@ -34,11 +33,10 @@ body {
             background-color:  #081b29;
             border: 1px solid #ADFFFA;
             opacity: 80%;
-            position: absolute;            
+            position: absolute;
             left: 40%;
             transform: translate(-50%, -50%);
-            
-            
+            -webkit-animation: pulse 2.5s infinite alternate;
 }
 @keyframes slideIn {
     from {

@@ -18,8 +18,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            overflow: hidden;
-            animation: slideIn 1s ease-in-out;
+            overflow: hidden;            
             
         }
         
@@ -50,6 +49,8 @@
            box-shadow: 0 0 25px #0ef;
            overflow: hidden;
            opacity: 85%;
+            /* or position: absolute; or position: fixed; */
+            z-index: 999;
         }
 
         .container .form-box
@@ -62,6 +63,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            
         }
 
         .container .form-box.login
