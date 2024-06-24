@@ -136,17 +136,20 @@ require_once('adminservlet.php');
                                     <td>$row[name]</td>
                                     <td>$row[surname]</td>
                                     <td class='action-links'>
-                                        <a href='view_user.php?user_id=$row[member_id]'>View</a>
+                                        <a href='view_user.php?user_id=$row[member_id]&admin_id=$admin_id'>View</a>
                                     </td>
                                     <td class='action-links remove-link'>
-                                        <a href='admin_main.php?user_id=$row[member_id]'>Remove</a>
+                                        <a href='admin_main.php?user_id=$row[member_id]&admin_id=$admin_id'>Remove</a>
                                     </td>
                                 </tr>
                             ";
         }
         ?>
         <tr>
-            <td colspan="4"><a href="admin_login.php" class="logout-link">Log Out</a></td>
+            <td colspan="2"><a href="admin_login.php" class="logout-link">Log Out</a></td>
+            <?php
+                echo "<td colspan='2'><a href='adminUsersReport.php?admin_id=$admin_id' class='logout-link'>View Report</a></td>";
+            ?>
         </tr>
     </table>
 </div>

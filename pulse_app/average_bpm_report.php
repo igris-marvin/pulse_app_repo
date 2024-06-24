@@ -63,7 +63,7 @@ require_once("average_servlet.php"); // File to handle database connection
                     <a>
                         <?php
                             echo "
-                                <a href='user_account.php?user_id=$user_id'>
+                                <a href='average_download_pdf.php?user_id=$user_id'>
                                     <i class='nav-link bi bi-download'></i>
                                 </a>
                             "

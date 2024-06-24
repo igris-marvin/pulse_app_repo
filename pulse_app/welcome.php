@@ -69,7 +69,83 @@ require_once("welcomeservlet.php");
             margin-top: 50px;            
             margin-left: 45px;
 }
+.navbar {
+            width: 100%;
+            height: 10%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* background-color: #169384; */
+            margin-top: 5px;
+            opacity: 85%;
+    
+        }
+        .dropdown {
+            position: relative;
+        }
 
+        .dropdown-btn {
+            color: #fbfcfd;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            margin-right: 100px;
+        }
+        .dropdown-content-burger {
+            display: none;
+            position: absolute;
+            background-color: #74A5A0;
+            min-width: 160px;
+            z-index: 1;
+            
+        }
+
+        .dropdown-content-burger a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content-burger a:hover {
+            background-color: #f9f9f9;
+            color: black;
+        }
+
+        .dropdown:hover .dropdown-content-burger {
+            display: block;
+        }
+
+
+        .btn:hover {
+            color: aqua
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #74A5A0;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            top: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .burger-icon {
+        cursor: pointer;
+        }
     </style>
     
 </head>
@@ -161,6 +237,16 @@ require_once("welcomeservlet.php");
             <div class="player">
             <div class="wrapper">
                 <div class="details">
+                    <!-- drop down -->
+                    <div class="navbar">
+                        <div class="dropdown">
+                            <button class="dropdown-btn">&#9776;</button>
+                            <div class="dropdown-content-burger">
+                                <a href="system.php">Our Journey</a>
+                                <a href="us.php">About Us</a>
+                            </div>
+                        </div>
+                    </div>      
                     <div class="now-playing">
 
                         <!-- <div class="pulse-data"> -->
@@ -197,6 +283,8 @@ require_once("welcomeservlet.php");
                          </div>
 
                     </div>
+
+                    
                     
                 </div>
 

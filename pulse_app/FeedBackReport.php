@@ -228,6 +228,34 @@ require_once("feed_servlet.php");
     background-color: transparent;
 }
 
+.back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .back-button:hover {
+        background-color: #0056b3;
+    }
+    .download-button
+    {
+      display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+    .download-button:hover
+    {
+      background-color: #0056b3;
+    }
+
 
     </style>
 </head>
@@ -254,6 +282,7 @@ require_once("feed_servlet.php");
                     <div class="advice">
                         <i><?php echo nl2br($advice); ?></i>
                     </div>
+                    <button class='download-button' >Download Tips</button>
                 </div>
             </body>
             </html>
@@ -277,11 +306,14 @@ require_once("feed_servlet.php");
                         <source src="video/Emotions.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-
+                        <?php
+                        echo "<a href='\pulse_app\welcome.php?user_id=$user_id' class='back-button'>Back</a>";
+                        ?>
                 </div>
             </body>
             </html>
         </div>
     </div>
+    
 </body>
 </html>

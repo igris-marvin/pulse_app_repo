@@ -40,7 +40,7 @@ require_once("edit_profileservlet.php");
 
         <div  class="input-box animation" style="--i:17;"> 
         <label for="password">Enter new Password:</label><br>
-        <input type="password" id="password" name="password" value="<?php echo $password?>" required><br><br>
+        <input type="password" id="password" name="password" value="<?php echo $password?>"><br><br>
         </div>
 
         <div  class="input-box animation" style="--i:17;"> 

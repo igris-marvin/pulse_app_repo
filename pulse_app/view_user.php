@@ -127,7 +127,9 @@ require_once("view_user_servlet.php");
                             <td class="bpm"><b><?php echo $pulse ?></b></td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="back-button"><a href="admin_main.php">Back</a></td>
+                            <?php
+                                echo "<td colspan='2' class='back-button'><a href='admin_main.php?admin_id=$admin_id'>Back</a></td>";
+                            ?>
                         </tr>
                     </table>
                 </div>

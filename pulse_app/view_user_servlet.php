@@ -3,6 +3,18 @@
 require_once("connect.php");
 require_once("view_user_repository.php");
 
+$admin_id = null;
+
+if(isset($_GET['admin_id'])) {
+    $admin_id = $_GET['admin_id'];
+
+} else {
+    // Handle the case where 'id' parameter is not set
+    echo "User ID is not provided in the URL.";
+
+    header("location: admin_login.php");
+}
+
 if(isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
 

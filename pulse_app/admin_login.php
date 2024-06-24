@@ -11,7 +11,7 @@ if(isset($_POST['login'])) {
 
     if(validateUsername($username)) {
     
-        $sql = "SELECT username, password FROM member WHERE role = 'ADMIN'";
+        $sql = "SELECT username, password, member_id FROM member WHERE role = 'ADMIN'";
         $result = $conn->query($sql); //execute query
     
         if (!$result) {
@@ -20,8 +20,12 @@ if(isset($_POST['login'])) {
     
         //read each record from table
         while ($row = $result->fetch_assoc()) {
-            if($username == $row["username"] && $password == $row["password"] ) {
-                header("Location: admin_main.php");
+            if($username == $row["username"] && password_verify($password, $row["password"]) ) {
+
+                $user_id = $row['member_id'];
+
+                header("Location: admin_main.php?admin_id=$user_id");
+                
             } else {
                 $error = "Invalid username or password";
             }

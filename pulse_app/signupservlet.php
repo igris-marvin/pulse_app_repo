@@ -19,6 +19,7 @@ if (isset($_POST['register'])) {
     $username = $_POST['username']; // USERNAME
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password']; 
+    $pass = null;
     $role = "CUSTOMER";
     $gender = extractGenderFromSAID($idnumber); // GENDER
     $dob = extractDOBFromSAID($idnumber); //DATE OF BIRTH
@@ -69,13 +70,18 @@ if (isset($_POST['register'])) {
 
             $error = "Passwords do not match";
 
+        }else if(validatePassword($password)) {
+
+            $error = "Error, Invalid password, password length must be bigger than 4 and less than 12";
+
         } else {
 
             $mgr = assignAdmin($conn);
+            $pass = password_hash($password, PASSWORD_BCRYPT);
 
             if(!empty($mgr)) {
 
-                $member_object = new Member(0, $idnumber, $image, $name, $surname, $password, $gender, $dob, $role, $mgr, $tcs, $username);
+                $member_object = new Member(0, $idnumber, $image, $name, $surname, $pass, $gender, $dob, $role, $mgr, $tcs, $username);
 
                 $flag = createUser($member_object, $conn);
 
@@ -155,6 +161,17 @@ function extractGenderFromSAID($idNumber) {
 function validateNumber($idnumber) {
     // Check if $idnumber contains only numbers
     return preg_match('/^[0-9]+$/', $idnumber) === 1;
+}
+
+function validatePassword($password) {
+    
+    $p_c = strlen((string)$password);
+    
+    if($p_c < 5 || $p_c > 11) {
+        return true;
+    }
+
+    return false;
 }
 
 ?>

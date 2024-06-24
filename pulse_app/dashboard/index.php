@@ -1,6 +1,11 @@
 <?php
 
 require_once("dashboard_servlet.php");
+require_once("dashboard_persistence.php");
+
+$happy_count = getMoodCount($user_id, 'Happy', $conn);
+$moder_count = getMoodCount($user_id, 'Moderate', $conn);
+$sad_count = getMoodCount($user_id, 'Sad', $conn);
 
 ?>
 
@@ -88,12 +93,12 @@ if(isset($_GET['user_id'])) {
 }
 
 // Fetch data from the database
-function getPulseData($conn, $limit) {
+function getPulseData($conn, $limit, $member_id) {
     $data = [];
 
     $sql = "SELECT pulse_rate, timestamp 
             FROM pulse_data p, emotion_regulator_app e
-            WHERE p.device_id = e.pulse_device_id 
+            WHERE p.device_id = e.pulse_device_id AND e.member_id = $member_id
             LIMIT $limit";
             
 
@@ -132,7 +137,7 @@ if (isset($_GET['limit']) && in_array($_GET['limit'], [10, 20, 30])) {
     $limit = (int)$_GET['limit'];
 }
 
-$pulseData = getPulseData($conn, $limit);
+$pulseData = getPulseData($conn, $limit, $user_id);
 ?>
 
 <!DOCTYPE html>
@@ -190,57 +195,58 @@ $pulseData = getPulseData($conn, $limit);
         text-decoration: none;
         border-radius: 4px;
         margin-top: 20px;
-    }
+        }
 
-    .back-button:hover {
-        background-color: #0056b3;
-    }
-    .download-button
-    {
-      display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        margin-top: 20px;
-    }
-    .download-button:hover
-    {
-      background-color: #0056b3;
-    }
-
-    .back-button {
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .download-button
+        {
         display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        margin-top: 20px;
-    }
-
-    .back-button:hover {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .download-button:hover
+        {
         background-color: #0056b3;
-    }
-    .download-button
-    {
-      display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        margin-top: 20px;
-    }
-    .download-button:hover
-    {
-      background-color: #0056b3;
-    }
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .download-button
+        {
+        display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .download-button:hover
+        {
+        background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <h1>Pulse Data </h1>
+    <h1>Summary Report</h1>
+    
     <form class="filter-form" method="get" action="">
         <label for="limit">Show records:</label>
         <select name="limit" id="limit" onchange="this.form.submit()">
@@ -340,9 +346,13 @@ $pulseData = getPulseData($conn, $limit);
 
             // Prepare data for mood chart
             const moodCounts = { 'Happy': 0, 'Moderate': 0, 'Sad': 0 };
-            pulseData.forEach(entry => {
-                moodCounts[entry.mood]++;
-            });
+            // pulseData.forEach(entry => {
+            //     moodCounts[entry.mood]++;
+            // });
+
+            moodCounts['Happy'] = "<?php echo $happy_count; ?>";
+            moodCounts['Moderate'] = "<?php echo $moder_count; ?>";
+            moodCounts['Sad'] = "<?php echo $sad_count; ?>";
 
             // Create mood chart
             const ctxMood = document.getElementById('moodChart').getContext('2d');

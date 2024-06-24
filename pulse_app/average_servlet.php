@@ -18,19 +18,6 @@ $timestamps = getTimes($user_id, $conn);
 
 $number = 0;
 
-///////////////////////
-
-// Given datetime string
-$datetime_string = "2024-06-22 14:34:10";
-
-$datetime = new DateTime($datetime_string);
-
-// Extract the date and time separately
-$formatted_date = $datetime->format('d M y');
-$time = $datetime->format('H:i:s');
-
-////////////////////
-
 $times = [];
 $dates = [];
 

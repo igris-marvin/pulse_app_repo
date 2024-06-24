@@ -1,15 +1,20 @@
 <?php
 
-function getMood($member_id, $conn) {
-    $mood = "";
+function getMoodCount($member_id, $mood, $conn) {
+    $count = 0;
 
-    return $mood;
-}
+    $sql = "SELECT COUNT(mood) AS mood_count 
+            FROM reading r, emotion_regulator_app a 
+            WHERE mood IN ('$mood') 
+            AND a.pulse_app_id = r.pulse_app_id AND a.member_id = $member_id";
 
-function getBpm($member_id, $conn) {
-    $bpm = 0;
+    $result = $conn->query($sql);
 
-    return $bpm;
+    if($row = $result->fetch_assoc()) {
+        $count = $row['mood_count'];
+    }
+
+    return $count;
 }
 
 ?>

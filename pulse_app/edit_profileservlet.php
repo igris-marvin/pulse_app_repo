@@ -20,7 +20,8 @@ if(isset($_GET['user_id'])) {
 
 $member_id = $user_id;
 $username = getUsername($member_id, $conn);
-$password = getPassword($member_id, $conn);
+$password = "";
+$pass = null;
 $name = getName($member_id, $conn);
 $surname = getSurname($member_id, $conn);
 $image = getImage($member_id, $conn);
@@ -31,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process form data when form is submitted
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $pass_flag = false;
     $name = $_POST['name'];
     $surname = $_POST['surname'];
 
@@ -40,6 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // Process the image data
         // ...
+    }
+
+    if(strlen((string) $password) > 0) {
+        $pass_flag = true;
     }
 
     $error;
@@ -56,11 +62,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo '<p style="color:red; font-size:30px; margin-right:1000px;font-weight: 600;">Error, name, surname or username must be less than 25 characters</p>';
         $error = "not empty";
+    } elseif(validatePassword($password) && $pass_flag) {
+
+        echo "<p style='color:red; font-size:30px; margin-right:1000px;font-weight: 600;'>Error, Invalid password, password length must be bigger than 4 and less than 12</p>";
+        $error = "not empty";
+        $password = "";
     }
 
     if(empty($error)) {
 
-        $stmt = updateProfile($member_id, $name, $surname, $username, $password, $image, $conn);
+        if($pass_flag) {
+            $pass = password_hash($password, PASSWORD_BCRYPT);
+
+        } else {
+            $pass = getPassword($member_id, $conn);
+
+        }
+
+        $stmt = updateProfile($member_id, $name, $surname, $username, $pass, $image, $conn);
+
+        $password = "";
 
             // Profile updated successfully
             echo '<p style="color:limegreen; font-size:30px; margin-right:1000px;font-weight: 600;">Your Profile Has Been Updated</p>';
@@ -106,5 +127,17 @@ function validateMaxLength($text) {
 
     return false;
 }
+
+function validatePassword($password) {
+    
+    $p_c = strlen((string)$password);
+    
+    if($p_c < 5 || $p_c > 11) {
+        return true;
+    }
+
+    return false;
+}
+
 
 ?>
