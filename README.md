@@ -94,7 +94,7 @@ CLIENT_USER_PAGE
 CLIENT_FEED_PAGE
 CLIENT_HELP_PAGE
 CLIENT_MUSIC_PAGE > show dev uploaded music and user uploaded music, categorized into 3 moods
-CLIENT_HISTORY_PAGE > graphs, list of pulse rate records, list of averages, with timestamps
+CLIENT_TRENDS_PAGE > graphs, list of pulse rate records, list of averages, with timestamps
 
 ADMIN_LOGIN_PAGE
 ADMIN_DASHBOARD_PAGE
